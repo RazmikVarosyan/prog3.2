@@ -1,4 +1,5 @@
-class GrassEater extends LeavingCreator{
+let LeavingCreator = require("./class")
+module.exports = class GrassEater extends LeavingCreator{
     constructor(x,y,index){
         super(x,y,index);
         this.energy = 12;

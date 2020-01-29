@@ -1,4 +1,4 @@
-class LeavingCreator{
+module.exports = class LeavingCreator{
     constructor(x,y,index){
         this.x = x;
         this.y = y;

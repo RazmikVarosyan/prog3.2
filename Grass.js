@@ -1,4 +1,5 @@
-class Grass extends LeavingCreator{
+let LeavingCreator = require("./class")
+module.exports = class Grass extends LeavingCreator{
     mul() {
         this.multiply++;
         var newCell = random(this.chooseCell(0));

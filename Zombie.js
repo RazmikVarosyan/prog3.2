@@ -1,4 +1,5 @@
-class Zombie extends LeavingCreator{
+let LeavingCreator = require("./class")
+module.exports = class Zombie extends LeavingCreator{
     constructor(x,y,index){
         super(x,y,index);
         this.energy = 10;

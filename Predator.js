@@ -1,4 +1,5 @@
-class Predator extends LeavingCreator{
+let LeavingCreator = require("./class")
+module.exports = class Predator extends LeavingCreator{
     constructor(x,y,index){
         super(x,y,index);
         this.energy = 15;
