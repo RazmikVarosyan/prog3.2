@@ -40,7 +40,8 @@ module.exports = class GrassEater extends LeavingCreator{
     }
 
     move() {
-        var newCell = random(this.chooseCell(0));
+
+        var newCell = Math.floor(Math.random() * this.chooseCell(0).length);
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -60,7 +61,7 @@ module.exports = class GrassEater extends LeavingCreator{
 
 
     eat() {
-        var newCell = random(this.chooseCell(1));
+        var newCell = Math.floor(Math.random() * this.chooseCell(1).length);
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -84,11 +85,12 @@ module.exports = class GrassEater extends LeavingCreator{
 
 
     mul() {
-        var newCell = random(this.chooseCell(0));
+        var newCell = Math.floor(Math.random() * this.chooseCell(0).length);
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[newY][newX] = new GrassEater(newX, newY, 2);
+            matrix[newY][newX] = 2
+            GrassEaterArr.push(new GrassEater(newX, newY, 2));
         }
     }
     die() {

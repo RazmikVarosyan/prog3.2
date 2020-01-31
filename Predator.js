@@ -38,7 +38,7 @@ module.exports = class Predator extends LeavingCreator{
         return super.chooseCell(num)
     }
     move() {
-        var newCell = random(this.chooseCell(0));
+        var newCell = Math.floor(Math.random() * this.chooseCell(0).length);
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -58,7 +58,7 @@ module.exports = class Predator extends LeavingCreator{
         }
     }
     eat() {
-        var newCell = random(this.chooseCell(2));
+        var newCell = Math.floor(Math.random() * this.chooseCell(2).length);
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -80,11 +80,12 @@ module.exports = class Predator extends LeavingCreator{
         }
     }
     mul() {
-        var newCell = random(this.chooseCell(2));
+        var newCell = Math.floor(Math.random() * this.chooseCell(2).length);
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[newY][newX] = new Predator(newX, newY, 3);
+            matrix[newY][newX] = 3;
+            PredatorArr.push(new Predator(newX, newY, 3));
         }
     }
     die() {

@@ -17,10 +17,10 @@ module.exports = class Hunter extends LeavingCreator{
     move() {
         if (this.acted == false) {
 
-            var newCell = random(this.chooseCell(0));
-            var newCell1 = random(this.chooseCell(1));
-
-            var f = random([newCell, newCell1]);
+            var newCell1 = Math.floor(Math.random() * this.chooseCell(0).length);
+            var newCell2 = Math.floor(Math.random() * this.chooseCell(1).length);
+            newCell3.concat(newCell1,newCell2)
+            var f = Math.floor(Math.random() * newCell3.length)
             if (f) {
                 var newX = f[0];
                 var newY = f[1];

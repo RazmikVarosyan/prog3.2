@@ -37,9 +37,9 @@ module.exports = class Zombie extends LeavingCreator{
         return super.chooseCell(num);
     }
     move() {
-        var newCell = random(this.chooseCell(0));
-        var newCell1 = random(this.chooseCell(1));
-        var m = random([newCell, newCell1]);
+        var newCell = Math.floor(Math.random() * this.chooseCell(0).length);
+        var newCell1 = Math.floor(Math.random() * this.chooseCell(1).length);
+        var m = newCell.concat(newCell1)
         if (this.acted == false) {
             if (m) {
                 var newX = m[0];
@@ -59,9 +59,9 @@ module.exports = class Zombie extends LeavingCreator{
         }
     }
     eat() {
-        var newCell = random(this.chooseCell(2));
-        var newCell1 = random(this.chooseCell(3));
-        var t = random([newCell, newCell1]);
+        var newCell = Math.floor(Math.random() * this.chooseCell(2).length);
+        var newCell1 = Math.floor(Math.random() * this.chooseCell(3).length);
+        var t = Math.random() * (newCell1 - newCell) + newCell;
         if (this.acted == false) {
             if (t) {
                 var newX = t[0];
@@ -82,13 +82,14 @@ module.exports = class Zombie extends LeavingCreator{
     }
 
     mul() {
-        var newCell = random(this.chooseCell(4));
+        var newCell = Math.floor(Math.random() * this.chooseCell(4).length);
         if (newCell) {
 
 
             var newX = newCell[0];
             var newY = newCell[1];
-            matrix[newY][newX] = new Zombie(newX, newY, 5);
+            matrix[newY][newX] = 5;
+            ZombieArr.push(new Zombie(newX, newY, 5));
 
         }
     }
