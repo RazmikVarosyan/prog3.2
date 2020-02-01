@@ -1,18 +1,18 @@
 let LeavingCreator = require("./class")
-module.exports = class Zombie extends LeavingCreator{
-    constructor(x,y,index){
-        super(x,y,index);
+module.exports = class Zombie extends LeavingCreator {
+    constructor(x, y, index) {
+        super(x, y, index);
         this.energy = 10;
     }
-    getNewCoordinates(){
+    getNewCoordinates() {
         this.directions = [
             [this.x, this.y - 1],
-            [this.x-1, this.y - 1],
+            [this.x - 1, this.y - 1],
             [this.x - 1, this.y],
-            [this.x - 1, this.y+1],
-            [this.x, this.y+1],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
             [this.x + 1, this.y + 1],
-            [this.x+1, this.y],
+            [this.x + 1, this.y],
             [this.x + 1, this.y - 1],
             [this.x, this.y - 2],
             [this.x - 1, this.y - 2],
@@ -32,13 +32,13 @@ module.exports = class Zombie extends LeavingCreator{
             [this.x + 1, this.y - 1]
         ];
     }
-    chooseCell(num){
+    chooseCell(num) {
         this.getNewCoordinates();
         return super.chooseCell(num);
     }
     move() {
-        var newCell = Math.floor(Math.random() * this.chooseCell(0).length);
-        var newCell1 = Math.floor(Math.random() * this.chooseCell(1).length);
+        var newCell = Math.floor(Math.random() * super.chooseCell(0).length);
+        var newCell1 = Math.floor(Math.random() * super.chooseCell(1).length);
         var m = newCell.concat(newCell1)
         if (this.acted == false) {
             if (m) {
@@ -59,8 +59,8 @@ module.exports = class Zombie extends LeavingCreator{
         }
     }
     eat() {
-        var newCell = Math.floor(Math.random() * this.chooseCell(2).length);
-        var newCell1 = Math.floor(Math.random() * this.chooseCell(3).length);
+        var newCell = Math.floor(Math.random() * super.chooseCell(2).length);
+        var newCell1 = Math.floor(Math.random() * super.chooseCell(3).length);
         var t = Math.random() * (newCell1 - newCell) + newCell;
         if (this.acted == false) {
             if (t) {
@@ -72,8 +72,24 @@ module.exports = class Zombie extends LeavingCreator{
                 this.y = newY;
                 this.acted = true;
                 this.energy++;
-                
+
                 this.mul();
+                for (var i in t) {
+                    for (i in GrassEaterArr) {
+                        if (GrassEaterArr[i].x == newX && GrassEaterArr[i].y == newY) {
+
+                            GrassEaterArr.splice(i, 2);
+                        }
+                    }
+
+                    for (i in PredatorArr) {
+                        if (PredatorArr[i].x == newX && PredatorArr[i].y == newY) {
+
+                            PredatorArr.splice(i, 3);
+                        }
+                    }
+                }
+
             }
             else {
                 this.move();
@@ -82,7 +98,7 @@ module.exports = class Zombie extends LeavingCreator{
     }
 
     mul() {
-        var newCell = Math.floor(Math.random() * this.chooseCell(4).length);
+        var newCell = Math.floor(Math.random() * super.chooseCell(5).length);
         if (newCell) {
 
 
@@ -95,5 +111,8 @@ module.exports = class Zombie extends LeavingCreator{
     }
     die() {
         matrix[this.y][this.x] = 0;
+        for (var i in ZombieArr) {
+            ZombieArr.splice(i, 5);
+        }
     }
 }

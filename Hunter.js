@@ -17,8 +17,8 @@ module.exports = class Hunter extends LeavingCreator{
     move() {
         if (this.acted == false) {
 
-            var newCell1 = Math.floor(Math.random() * this.chooseCell(0).length);
-            var newCell2 = Math.floor(Math.random() * this.chooseCell(1).length);
+            var newCell1 = Math.floor(Math.random() * super.chooseCell(0).length);
+            var newCell2 = Math.floor(Math.random() * super.chooseCell(1).length);
             newCell3.concat(newCell1,newCell2)
             var f = Math.floor(Math.random() * newCell3.length)
             if (f) {
@@ -36,8 +36,8 @@ module.exports = class Hunter extends LeavingCreator{
     }
     eat() {
 
-        var xotakerner = this.chooseCell(2);
-        var gishatichner = this.chooseCell(3);
+        var xotakerner = super.chooseCell(2);
+        var gishatichner = super.chooseCell(3);
         var finals = xotakerner.concat(gishatichner);
         for (var i in finals) {
             var verX = finals[i][0];
@@ -45,9 +45,27 @@ module.exports = class Hunter extends LeavingCreator{
             matrix[verY][verX] = 0;
         }
         this.energy++;
+        for (var i in finals) {
+            for (i in GrassEaterArr) {
+                if (GrassEaterArr[i].x == verX && GrassEaterArr[i].y == verY) {
+
+                    GrassEaterArr.splice(i, 2);
+                }
+            }
+
+            for (i in PredatorArr) {
+                if (PredatorArr[i].x == verX && PredatorArr[i].y == verY) {
+
+                    PredatorArr.splice(i, 3);
+                }
+            }
+        }
     }
     die() {
         matrix[this.y][this.x] = 0;
+        for(var i in HunterArr){
+            HunterArr.splice(i, 4);
+        }
         this.energy == 0;
     }
 }

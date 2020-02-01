@@ -38,7 +38,7 @@ module.exports = class Predator extends LeavingCreator{
         return super.chooseCell(num)
     }
     move() {
-        var newCell = Math.floor(Math.random() * this.chooseCell(0).length);
+        var newCell = Math.floor(Math.random() * super.chooseCell(0).length);
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -58,7 +58,7 @@ module.exports = class Predator extends LeavingCreator{
         }
     }
     eat() {
-        var newCell = Math.floor(Math.random() * this.chooseCell(2).length);
+        var newCell = Math.floor(Math.random() * super.chooseCell(2).length);
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -73,6 +73,11 @@ module.exports = class Predator extends LeavingCreator{
                     this.energy = 10;
                 }
                 this.acted = true;
+                for(var i in GrassArr){
+                    if(GrassEaterArr[i].x == newX && GrassEaterArr[i].y == newY){
+                        GrassEaterArr.splice(i,2)
+                    }
+                };
             }
             else {
                 this.move();
@@ -80,7 +85,7 @@ module.exports = class Predator extends LeavingCreator{
         }
     }
     mul() {
-        var newCell = Math.floor(Math.random() * this.chooseCell(2).length);
+        var newCell = Math.floor(Math.random() * super.chooseCell(2).length);
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -90,5 +95,8 @@ module.exports = class Predator extends LeavingCreator{
     }
     die() {
         matrix[this.y][this.x] = 0;
+        for(var i in PredatorArr){
+            PredatorArr.splice(i,3)
+        };
     }
 }

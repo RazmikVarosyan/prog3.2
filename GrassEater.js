@@ -41,7 +41,7 @@ module.exports = class GrassEater extends LeavingCreator{
 
     move() {
 
-        var newCell = Math.floor(Math.random() * this.chooseCell(0).length);
+        var newCell = Math.floor(Math.random() * super.chooseCell(0).length);
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -61,7 +61,7 @@ module.exports = class GrassEater extends LeavingCreator{
 
 
     eat() {
-        var newCell = Math.floor(Math.random() * this.chooseCell(1).length);
+        var newCell = Math.floor(Math.random() * super.chooseCell(1).length);
         if (this.acted == false) {
             if (newCell) {
                 var newX = newCell[0];
@@ -76,6 +76,11 @@ module.exports = class GrassEater extends LeavingCreator{
                     this.mul();
                     this.energy = 6;
                 }
+                for(var i in GrassArr){
+                    if(GrassArr[i].x == newX && GrassArr[i].y == newY){
+                        GrassArr.splice(i,1)
+                    }
+                };
             }
             else {
                 this.move();
@@ -85,7 +90,7 @@ module.exports = class GrassEater extends LeavingCreator{
 
 
     mul() {
-        var newCell = Math.floor(Math.random() * this.chooseCell(0).length);
+        var newCell = Math.floor(Math.random() * super.chooseCell(0).length);
         if (newCell) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -95,5 +100,8 @@ module.exports = class GrassEater extends LeavingCreator{
     }
     die() {
         matrix[this.y][this.x] = 0;
+        for(var i in GrassEaterArr){
+            GrassEaterArr.splice(i,2);
+        }
     }
 }
