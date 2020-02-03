@@ -12,7 +12,7 @@ app.get('/', function (req, res) {
 server.listen(3000, function () {
     console.log('ok');   
 });
-
+ matrix = [];
 GrassArr = [];
 GrassEaterArr = [];
 PredatorArr = [];
@@ -24,7 +24,7 @@ GrassEater = require("./GrassEater");
 Predator = require("./Predator");
 Hunter = require("./Hunter");
 Zombie = require("./Zombie");
- matrix = [];
+
 // var side = 10;
 var n = 80;
 var m = 80;
@@ -130,26 +130,41 @@ function createObject(){
     io.sockets.emit("Send Matrix", matrix);
 }
 function game(){
-    for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            
-            if (matrix[y][x].index == 1) {
-                matrix[y][x].mul();
-            }
-            else if (matrix[y][x].index == 2) {
-                matrix[y][x].eat();
-            }
-            else if (matrix[y][x].index == 3) {
-                matrix[y][x].eat();
-            }
-            else if (matrix[y][x].index == 4) {
-                matrix[y][x].move();
-            }
-            else if (matrix[y][x].index == 5) {
-                matrix[y][x].eat();
-            }
-        }
+    for(var i in GrassArr){
+        GrassArr[i].mul();
     }
+    for(var i in GrassEaterArr){
+        GrassEaterArr[i].eat();
+    }
+    for(var i in PredatorArr){
+        PredatorArr[i].eat();
+    }
+    for(var i in HunterArr){
+        HunterArr[i].move();
+    }
+    for(var i in ZombieArr){
+        ZombieArr[i].eat();
+    }
+//     for (var y = 0; y < matrix.length; y++) {
+//         for (var x = 0; x < matrix[y].length; x++) {
+            
+//             if (matrix[y][x].index == 1) {
+//                 matrix[y][x].mul();
+//             }
+//             else if (matrix[y][x].index == 2) {
+//                 matrix[y][x].eat();
+//             }
+//             else if (matrix[y][x].index == 3) {
+//                 matrix[y][x].eat();
+//             }
+//             else if (matrix[y][x].index == 4) {
+//                 matrix[y][x].move();
+//             }
+//             else if (matrix[y][x].index == 5) {
+//                 matrix[y][x].eat();
+//             }
+//         }
+//     }
     io.sockets.emit("Send Matrix",matrix);
 }
 

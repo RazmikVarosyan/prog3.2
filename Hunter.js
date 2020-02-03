@@ -10,13 +10,7 @@ module.exports = class Hunter extends LeavingCreator{
                     this.directions.push([x, this.y]);
                 }
             }
-    chooseCell(num){
-        this.getNewCoordinates();
-        return super.chooseCell(num);
-    }
     move() {
-        if (this.acted == false) {
-
             var newCell1 = Math.floor(Math.random() * super.chooseCell(0).length);
             var newCell2 = Math.floor(Math.random() * super.chooseCell(1).length);
             newCell3.concat(newCell1,newCell2)
@@ -29,42 +23,51 @@ module.exports = class Hunter extends LeavingCreator{
                 this.x = newX;
                 this.y = newY;
                 this.eat();
-                this.acted = true;
-
             }
         }
-    }
+    
     eat() {
 
-        var xotakerner = super.chooseCell(2);
-        var gishatichner = super.chooseCell(3);
-        var finals = xotakerner.concat(gishatichner);
-        for (var i in finals) {
-            var verX = finals[i][0];
-            var verY = finals[i][1];
-            matrix[verY][verX] = 0;
-        }
-        this.energy++;
-        for (var i in finals) {
-            for (i in GrassEaterArr) {
-                if (GrassEaterArr[i].x == verX && GrassEaterArr[i].y == verY) {
-
-                    GrassEaterArr.splice(i, 2);
+        var xotakerner = super.chooseCell(2).length;
+        var gishatichner = super.chooseCell(3).length;
+        var newCell = newCell[Math.random() * (gishatichner - xotakerner) + xotakerner];
+        if(newCell){
+            var newX = newCell[0];
+            var newY = newCell[1];
+            matrix[newY][newX] = matrix[this.y][this.x];
+            matrix[this.y][this.x] = 0;
+            for (var i in HunterArr){
+                if(GrassEaterArr[i].x == newX && GrassEaterArr[i].y == newY){
+                    GrassEaterArr.splice(i,1)
+                }
+                else  if(PredaorArr[i].x == newX && PredatorArr[i].y == newY){
+                    PredatorArr.splice(i,1)
                 }
             }
-
-            for (i in PredatorArr) {
-                if (PredatorArr[i].x == verX && PredatorArr[i].y == verY) {
-
-                    PredatorArr.splice(i, 3);
-                }
+            this.x = newX;
+            this.y = newY;
+            this.energy ++;
+            if(this.energy <= 5){
+                this.die();
+            }
+            else{
+                this.move();
             }
         }
+        // var finals0 = xotakerner.concat(gishatichner);
+        // var finals = finals[Math.floor(Math.random() * finals0.length)]
+        // for (var i in finals) {
+        //     var verX = finals[i][0];
+        //     var verY = finals[i][1];
+        //     matrix[verY][verX] = 0;
+        // }
+        // this.energy++;
+     
     }
     die() {
         matrix[this.y][this.x] = 0;
         for(var i in HunterArr){
-            HunterArr.splice(i, 4);
+            HunterArr.splice(i, 1);
         }
         this.energy == 0;
     }
